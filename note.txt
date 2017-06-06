@@ -1,0 +1,2 @@
+before_action :require_user, only: [:index, :show]
+The before_action command calls the require_user method before running the index or show actions.

@@ -3,14 +3,23 @@
 	  <th>Name</th>
 	  <th>Description</th>
 	  <th>Price</th>
-	  <th>Edit</th>
+	  <% if current_user && current_user.admin? %> 
+		    <th>Edit</th>
+		<% end %>
+		</td>
+	 
 	</tr>
 	
 	<tr>
 	  <td><%= @item.name %></td>
 	  <td><%= @item.description %></td>
 	  <td><%= @item.price %></td>
-	  <td><%= link_to "Edit", edit_item_path(@item) %></td>
+	  <td>
+	  <% if current_user && current_user.admin? %> 
+		   <%= link_to "Edit Item", edit_item_path(@item) %>
+		<% end %>
+		</td>
+	 
 	</tr>
 	
 </table>

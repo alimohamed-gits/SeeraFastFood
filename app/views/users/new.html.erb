@@ -1,0 +1,15 @@
+
+  
+	
+<%= form_for @user, :html => {:class=>"w3-container w3-light-grey"} do |f| %>
+  <h1>Sign up</h1>
+  <%= f.text_field :first_name, :placeholder => "First name", :class => "w3-input w3-border-0" %>
+  <%= f.text_field :last_name, :placeholder => "Last name", :class => "w3-input w3-border-0" %>
+  <%= f.text_field :address, :placeholder => "Address", :class => "w3-input w3-border-0" %>
+  <%= f.email_field :email, :placeholder => "Email", :class => "w3-input w3-border-0" %>
+   <%= f.text_field :phone, :placeholder => "Phone Number", :class => "w3-input w3-border-0" %>
+  <%= f.password_field :password, :placeholder => "Password", :class => "w3-input w3-border-0" %>
+  <%= f.submit "Create an account", :class => "w3-button w3-block w3-black", :style => "width:30%" %>
+<% end %>
+
+  

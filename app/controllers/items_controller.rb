@@ -1,5 +1,8 @@
 class ItemsController < ApplicationController
-  def index
+	before_action :require_admin, only: [:edit]
+	
+	
+	def index
 	end
 
 	def show

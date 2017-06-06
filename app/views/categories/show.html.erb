@@ -1,24 +1,28 @@
-<div class="w3-container">
-  <h2><%= @category.name %></h2>
+<h2 class="w3-center"><%= @category.name %></h2>
 
-	<table class="w3-table w3-striped w3-bordered">
-	
-		<tr>
-		  <th></th>
-		  <th>Name</th>
-		  <th>Description</th>
-		  <th>Price</th>
-		  <th>Explore</th>
-		</tr>
+	<!-- First Photo Grid-->
+	<div class="w3-row-padding w3-padding-16 w3-center" id="food">
 		<% @items.each do |i| %>
-			<tr>
-				<td><%= image_tag i.image, :size => "130x90" %></td>
-			  <td><%= i.name %></td>
-			  <td><%= i.description %></td>
-			  <td><%= i.price %></td>
-			  <td><%= link_to "More..", item_path(i) %></td>
-			</tr>
+			<div class="w3-quarter">
+				<%= image_tag i.image, :style => "width:100%" %>
+				<h3><%= i.name %></h3>
+				<p><%= i.description %></p>
+				<p><%= i.price %></p>
+				<select>
+				  <option value="1">1</option>
+				  <option value="2">2</option>
+				  <option value="3">3</option>
+				  <option value="4">4</option>
+				  <option value="5">5</option>
+				  <option value="6">6</option>
+				</select>
+				<button class="w3-button w3-large w3-circle w3-black">+</button> <br /><br />
+				<% if current_user && current_user.admin? %> 
+					<%= link_to "More..", item_path(i) %>
+				<% end %>
+			</div>
 		<% end %>
+	</div>
+   
 
-    </table>
-</div>
+
