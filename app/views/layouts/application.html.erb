@@ -5,8 +5,7 @@
     <%= csrf_meta_tags %>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-	<%= stylesheet_link_tag "filename" %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -19,6 +18,10 @@
 		<%= link_to "Noodes", category_path(2), :class => "w3-bar-item w3-button" %>
 		<%= link_to "Pasta", category_path(3), :class => "w3-bar-item w3-button" %>
 		<%= link_to "Salad", category_path(4), :class => "w3-bar-item w3-button" %>
+		<%= link_to "About", static_pages_about_path, :class => "w3-bar-item w3-button" %>
+		 <% if current_user && current_user.admin? %>
+          <%= link_to "Dashboard", dashboard_index_path, :class => "w3-bar-item w3-button" %>
+        <% end %>
 	</nav>
 
 	<!-- Top menu -->
@@ -28,18 +31,24 @@
 		<div class="w3-right w3-padding-16">
 			<% if current_user %>
 				<%= current_user.first_name %>
-				<%= link_to "Log out", logout_path, method: "delete" %>
+				<%= link_to "Log out", session_path, method: "delete" %>
 			<% else %>
-				<%= link_to "Login", login_path %>
+				<%= link_to "Login", new_session_path %>
 				<%= link_to "Signup", signup_path %>
 			<% end %>
 		</div>
-		<div class="w3-center w3-padding-16">Seera Fast Food</div>
+		<div class="w3-center w3-padding-16"><%= link_to "Seera Fast Food", categories_path, style: "text-decoration: none" %></div>
 	  </div>
 	</div>
-  
+ 
+      
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+	 	<div class="w3-center">
+			<%- if flash.notice %>
+			  <p><%= flash.notice %></p>
+			<% end %>
+		</div>
     <%= yield %>
   </body>
 </html>

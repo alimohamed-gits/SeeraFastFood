@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517054756) do
+ActiveRecord::Schema.define(version: 20181112013357) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "image"
@@ -30,6 +30,23 @@ ActiveRecord::Schema.define(version: 20170517054756) do
     t.index ["category_id"], name: "index_items_on_category_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "quantity"
+    t.index ["item_id"], name: "index_order_items_on_item_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "status"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -37,9 +54,10 @@ ActiveRecord::Schema.define(version: 20170517054756) do
     t.string   "email"
     t.string   "phone"
     t.string   "password_digest"
-    t.string   "role"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "admin",           default: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

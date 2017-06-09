@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-	before_action :is_admin?, :except => [:index]
+	before_action :require_admin, only: [:edit :index]
 	
 	
 	def index
@@ -36,6 +36,6 @@ class ItemsController < ApplicationController
 
 	private 
 		def item_params 
-			params.require(:item).permit(:name, :image :description) 
+			params.require(:item).permit(:name, :description) 
 		end
 end

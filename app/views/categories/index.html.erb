@@ -1,11 +1,35 @@
+  <ul>
+    <% @categories.each do |category| %>
+     <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+	 <h1><%= category.name %></h1>
+      
+        <% category.items.each do |item| %>
+		
+		<div class="w3-quarter">
+		   <div id="<%= dom_id(item) %>">
+          <p><%= item.name %></p>
+          <%= image_tag item.image, :style => "width:100%" %>
+          <p>description: <%= item.description %></p>
+          <p>price: Mrf &nbsp<%= item.price %></p>
+          <%= form_for item.order_items.new do |f| %>
+            <%= f.hidden_field :item_id %>
+            <%= f.submit "Add to Cart" %>
+          <select id="quantity_<%= dom_id(item) %>" name="quantity">
+          <option selected="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          </select> <label for="quantity_<%= dom_id(item) %>"></label><br/>
+          <% end %>
+        </div>
+		</div>
+        <% end %>
+      </div>
+    <% end %>
+  </ul>
 
-<!-- First Photo Grid-->
-	<div class="w3-row-padding w3-padding-16 w3-center" id="food">
-		<% @categories.each do |t| %>
-			<div class="w3-quarter">
-				<%= image_tag t.image, :style => "width:100%" %>
-				<h3><%= t.name %></h3>
-				<td><%= link_to "Explore", category_path(t) %></td>
-			</div>
-		<% end %>
-	</div>
+
+
+
