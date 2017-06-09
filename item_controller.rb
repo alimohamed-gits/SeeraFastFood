@@ -15,10 +15,14 @@ class ItemsController < ApplicationController
 	end
 	
 	def create
-		item = Item.create(item_params)
-		item.save
-
-		redirect_to items_path
+		@item = Item.create(item_params)
+		@item.save
+		if @item.save
+			redirect_to(:action => 'show', :id => @item.id)
+			flash.notice = "item created"
+		else
+			redirect_to items_path
+		end
 	end
 	
 	def edit 

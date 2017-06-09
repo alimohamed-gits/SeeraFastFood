@@ -1,0 +1,32 @@
+<h2><%= @user.first_name %>&nbsp<%= @user.last_name %> </h2>
+
+
+<%= form_for(@user) do |f| %>
+	<div class="w3-row-padding">
+		<div class="w3-col" >
+			<%= f.label :first_name %>
+			<%= f.text_field :first_name, :class => "w3-input w3-border" %>
+		</div>
+		<div class="w3-col" >
+			<%= f.label :last_name %>
+			<%= f.text_field :last_name, :class => "w3-input w3-border" %>
+		</div>
+		<div class="w3-col" >
+			<%= f.label :email %>
+			<%= f.email_field :email, :class => "w3-input w3-border" %>
+		</div>
+		<div class="w3-col" >
+			<%= f.label :phone %>
+			<%= f.text_field :phone, :class => "w3-input w3-border" %>
+		</div>
+		<div class="w3-col" >
+			<%= f.label :address %>
+			<%= f.text_field :address, :class => "w3-input w3-border" %>
+		</div>
+	</div><br />
+	<div class="w3-row-padding">
+		<div class="w3-col w3-center" >
+			<%= f.submit "Update", :class => "w3-button w3-block w3-red" %>
+		</div>
+	</div>
+<% end %>

@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-	before_action :is_admin?, :except => [:index]
+		before_action :is_admin?, :except => [:index, :create]
 	
 	
 	def index
@@ -15,10 +15,15 @@ class ItemsController < ApplicationController
 	end
 	
 	def create
-		item = Item.create(item_params)
-		item.save
-
-		redirect_to items_path
+		@item = Item.new(item_params)
+		@item.save
+		if @item.save
+			redirect_to(:action => 'show', :id => @item.id)
+			flash.notice = "item created"
+		else
+			redirect_to items_path
+			flash.notice = "item not created"
+		end
 	end
 	
 	def edit 
@@ -33,9 +38,23 @@ class ItemsController < ApplicationController
 			render 'edit' 
 		end 
 	end
-
+	
+	def is_admin?
+		if current_user && current_user.admin?
+		end
+	end
+	
+	def upload
+		uploaded_io = params[:item][:image]
+		File.open(Rails.root.join('app', 'assets', 'images', uploaded_io.original_filename), 'wb') do |file|
+		file.write(uploaded_io.read)
+		end
+	end
+	
+	
+	
 	private 
 		def item_params 
-			params.require(:item).permit(:name, :image :description) 
+			params.require(:item).permit(:name, :image, :price, :category_id) 
 		end
 end
