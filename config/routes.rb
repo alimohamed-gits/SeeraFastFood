@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'categories/admin_index'
+
   get 'static_pages/about'
 
   get 'dashboard/index'

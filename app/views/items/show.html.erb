@@ -7,7 +7,7 @@
 	</tr>
 	
 	<tr>
-	  <td><%= image_tag @item.image, :style => "width:20%" %></td>
+	  <td><%= image_tag @item.image.url(:thumb), :style => "width:20%" %></td>
 	  <td><%= @item.name %></td>
 	  <td><%= @item.price %></td>
 	  <td><%= link_to "Edit Item", edit_item_path(@item) %></td>

@@ -1,27 +1,23 @@
-<h2><%= @item.name %> </h2>
 
 
-<%= form_for(@item) do |f| %>
-		
-	<div class="w3-row-padding">
-		<div class="w3-quarter">
-			<%= f.label :image %>
+<div class="w3-container w3-theme">
+  <h2><%= @item.name %></h2>
+</div>
+
+
+<%= form_for @item, html: { multipart: true,:class => "w3-container"} do |f| %>
+  <p>
+	  <%= f.label :image %>
 			<%= f.file_field :image, :size => "130x90", :class => "w3-input w3-border" %>
-		</div>
-		<div class="w3-quarter">
-			<%= f.label :name %>
-			<%= f.text_field :name, :class => "w3-input w3-border" %>
-		</div>
-		<div class="w3-quarter">
-			<%= f.label :description %>
-			<%= f.text_field :description, :class => "w3-input w3-border" %>
-		</div>
-		<div class="w3-quarter">
-			<%= f.label :price %>
-			<%= f.text_field :price, :class => "w3-input w3-border" %>
-		</div>
-		<div class="w3-col w3-center" >
-			<%= f.submit "Update", :class => "w3-button w3-block w3-red" %>
-		</div>
-	</div>
+  </p>
+  <p>
+	  <%= f.label :name %>
+		<%= f.text_field :name, :class => "w3-input w3-border" %>
+  </p>
+<p>
+  	<%= f.label :price %>
+	<%= f.text_field :price, :class => "w3-input w3-border" %>
+</p>	
+  	<%= f.submit "Update", :class => "w3-button w3-block w3-red" %>
+  
 <% end %>

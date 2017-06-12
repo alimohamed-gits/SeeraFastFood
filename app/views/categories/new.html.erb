@@ -1,0 +1,18 @@
+<div class="w3-container w3-theme">
+  <h2>Create a New Category</h2>
+</div>
+
+
+<%= form_for @category, html: { multipart: true, :class => "w3-container"} do |f| %>
+  <p>
+	  <%= f.label :image %>
+			<%= f.file_field :image, :size => "130x90", :class => "w3-input w3-border" %>
+  </p>
+  <p>
+	 <%= f.label :name %>
+			<%= f.text_field :name, :class => "w3-input w3-border" %>
+  </p>
+	
+  	<%= f.submit "Create", :class => "w3-button w3-block w3-red" %>
+  
+<% end %>

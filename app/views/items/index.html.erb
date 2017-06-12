@@ -1,12 +1,19 @@
-<h1>All items</h1>
-<%= link_to "New Item", new_item_path %>
 
-<ul id="items">
-  <% @items.each do |item| %>
-    <li>
-      <%= item.name %>
-      <%= link_to "Edit", edit_item_path(item.id), {class: "Edit", method: :get} %>
-      <%= link_to "Remove", item_path(item.id), data: {confirm: "Really remove this item?"}, class: "Delete", method: :delete %>
-    </li>
-  <% end %>
-</ul>
+<h1>All Items</h1>
+<%= link_to "Add New Item", new_item_path %>
+
+
+ <table class="w3-table w3-striped w3-bordered">
+	<tr>
+		<th>Image</th>
+		<th>Name</th>
+		<th>Edit</th>
+	</tr>
+	<% @items.each do |item| %>
+		<tr>
+		  <td><%= image_tag item.image.url(:thumb), :style => "width:20%" %></td>
+		  <td><%= item.name %></td>
+		  <td><%= link_to "Edit", edit_item_path(item.id), {method: :get} %></td>
+		</tr>
+	<% end %>
+</table>

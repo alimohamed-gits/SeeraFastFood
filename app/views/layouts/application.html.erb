@@ -14,10 +14,9 @@
 	<nav class="w3-sidebar w3-bar-block w3-card-2 w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
 	  <a href="javascript:void(0)" onclick="w3_close()"
 	  class="w3-bar-item w3-button">Close Menu</a>
-		<%= link_to "Rice", category_path(1), :class => "w3-bar-item w3-button" %> 
-		<%= link_to "Noodes", category_path(2), :class => "w3-bar-item w3-button" %>
-		<%= link_to "Pasta", category_path(3), :class => "w3-bar-item w3-button" %>
-		<%= link_to "Salad", category_path(4), :class => "w3-bar-item w3-button" %>
+		<% Category.all.each do |category| %>
+  			<%= link_to category.name, category_path(category), :class => "w3-bar-item w3-button" %>
+		<% end %>
 		<%= link_to "About", static_pages_about_path, :class => "w3-bar-item w3-button" %>
 		 <% if current_user && current_user.admin? %>
           <%= link_to "Dashboard", dashboard_index_path, :class => "w3-bar-item w3-button" %>
@@ -31,24 +30,27 @@
 		<div class="w3-right w3-padding-16">
 			<% if current_user %>
 				<%= current_user.first_name %>
-				<%= link_to "Log out", session_path, method: "delete" %>
+				<%= link_to "Log out", session_path, method: "delete", style: "text-decoration: none"%>
 			<% else %>
-				<%= link_to "Login", new_session_path %>
-				<%= link_to "Signup", signup_path %>
+				<%= link_to "Login", new_session_path, style: "text-decoration: none" %>
+				<%= link_to "Signup", signup_path, style: "text-decoration: none" %>
 			<% end %>
 		</div>
 		<div class="w3-center w3-padding-16"><%= link_to "Seera Fast Food", categories_path, style: "text-decoration: none" %></div>
 	  </div>
+	  
+	  	<div class="w3-center w3-padding-16">
+			<%- if flash.notice %>
+			  <p><%= flash.notice %></p>
+			<% end %>
+		</div>
+	  
 	</div>
  
       
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
-	 	<div class="w3-center">
-			<%- if flash.notice %>
-			  <p><%= flash.notice %></p>
-			<% end %>
-		</div>
-    <%= yield %>
+		
+	<%= yield %>
   </body>
 </html>

@@ -44,13 +44,7 @@ class ItemsController < ApplicationController
 		end
 	end
 	
-	def upload
-		uploaded_io = params[:item][:image]
-		File.open(Rails.root.join('app', 'assets', 'images', uploaded_io.original_filename), 'wb') do |file|
-		file.write(uploaded_io.read)
-		end
-	end
-	
+
 	
 	
 	private 

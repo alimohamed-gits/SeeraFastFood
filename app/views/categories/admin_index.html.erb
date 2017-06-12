@@ -1,0 +1,15 @@
+<h1>All Categories</h1>
+<%= link_to "Add New Category", new_category_path %>
+
+<ul id="categores">
+    <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+	  <% @categories.each do |category| %>
+		
+		<div class="w3-quarter">
+		   	<h3><%= category.name %></h3>
+		   	<%= image_tag category.image.url, :style => "width:100%" %>
+		   	<%= link_to "Edit Category", edit_category_path(category) %>
+        </div>
+        <% end %>
+      </div>
+ </ul>

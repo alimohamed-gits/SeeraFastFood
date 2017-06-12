@@ -1,15 +1,14 @@
   <ul>
     <% @categories.each do |category| %>
-     <div class="w3-row-padding w3-padding-16 w3-center" id="food">
-	 <h1><%= category.name %></h1>
+     <div class="w3-row-padding w3-padding-16">
+	     <h1><%= category.name %></h1>
       
         <% category.items.each do |item| %>
 		
-		<div class="w3-quarter">
+		<div class="w3-quarter w3-center">
 		   <div id="<%= dom_id(item) %>">
           <p><%= item.name %></p>
-          <%= image_tag item.image, :style => "width:100%" %>
-          <p>description: <%= item.description %></p>
+          <%= image_tag item.image.url, :style => "width:100%" %>
           <p>price: Mrf &nbsp<%= item.price %></p>
           <%= form_for item.order_items.new do |f| %>
             <%= f.hidden_field :item_id %>
