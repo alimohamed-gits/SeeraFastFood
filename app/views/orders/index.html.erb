@@ -1,7 +1,7 @@
 <% if current_user.admin? %>
 <h1>All orders</h1>
 <% else %>
-<h1>All orders for <%= current_user.email%></h1>
+<h1>All orders for <%= current_user.first_name%> &nbsp<%= current_user.last_name%></h1>
 <% end %>
 <ul id="orders">
   <% @orders.each do |order| %>

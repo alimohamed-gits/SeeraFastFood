@@ -33,6 +33,13 @@ class ApplicationController < ActionController::Base
 	def current_order
 		@current_order ||= Order.find(session[:order_id]) if session[:order_id]
 	end
+
+	def is_admin?
+	    unless current_user && current_user.admin?
+	      flash.notice = 'Page does not exist!'
+	      redirect_to root_path
+	    end
+  	end
 	
 	  
 	def require_user 

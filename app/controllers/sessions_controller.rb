@@ -8,12 +8,11 @@ class SessionsController < ApplicationController
   def create
     user = User.where(email: params[:email]).first
     if user && user.authenticate(params[:password])
-      puts 'checking it works'
       session[:user_id] = user.id
       user.orders << find_or_create_order
       redirect_after_login
     else
-      flash.now.alert = 'Invalid email or password'
+      flash.now[:notice] = 'Invalid email or password'
       render :new
     end
   end
@@ -26,7 +25,7 @@ class SessionsController < ApplicationController
 
   def redirect_after_login
     if current_order.order_items.any?
-      redirect_to order_path(current_order), notice: 'Signed in successfully.'
+      redirect_to order_path(current_order), flash[:notice] = 'Signed in successfully.'
     else
       redirect_to categories_path
     end

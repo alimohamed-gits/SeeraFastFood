@@ -12,24 +12,14 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 	end
   
-  # def create 
-    # @user = User.new(user_params)
-		# @user.save
-		# if @user.save 
-			#session[:user_id] = @user.id 
-			# redirect_to '/' 
-		# else 
-			# redirect_to '/signup' 
-		# end 
-	# end
-	def create
+   def create
 		@user = User.new(user_params)
 		@user.save
 
 		if @user.valid?
-		  flash.alert = 'New Account Successfully created'
+		  flash[:notice] = 'New Account Successfully created'
 		  session[:user_id] = @user.id 
-		  redirect_to new_session_path
+		  redirect_to categories_path
 		else
 		  render new_user_path
 		end

@@ -1,17 +1,21 @@
 class OrdersController < ApplicationController
+
   def index
-	if !current_user
-      flash.notice = 'You need to sign in to view past orders'
-      redirect_to new_session_path
+  	if !current_user
+        flash.notice = 'You need to sign in to view past orders'
+        redirect_to new_session_path
     elsif !current_user.admin?
-      @orders = current_user.orders.where(status: 'completed')
+        @orders = current_user.orders.where(status: 'completed')
     else
-      @orders = Order.all
+        @orders = Order.all
     end
   end
 
   def show
-	@order = current_order
+	 @order = current_order
+  end
+  def update
+
   end
   
   def checkout
@@ -20,6 +24,7 @@ class OrdersController < ApplicationController
       @order.update(status: "completed")
       flash.notice = "Order Completed"
       session[:order_id] = nil
+      user.orders << find_or_create_order
       redirect_to categories_path
     else
       flash.notice = "You need to sign in first!"
