@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   
+  get 'orders/edit'
+
+  get 'orders/update'
+
   get 'categories/admin_index'
 
   get 'static_pages/about'
 
   get 'dashboard/index'
+  get 'orders/edit'
+
 
 	resources :items
 	resources :categories

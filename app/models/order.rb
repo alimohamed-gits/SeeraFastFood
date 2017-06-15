@@ -15,4 +15,15 @@ class Order < ActiveRecord::Base
     sum
   end
 
+  def grandtotal
+    sum = 0
+    sum = total + gst
+  end
+
+  def gst
+    sum = 0
+    sum = (total * 6)/100
+  end
+
+
 end

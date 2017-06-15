@@ -44,12 +44,13 @@
 			<% if @order && @order.total > 0 %>
 	          <%= link_to "Cart: Mrf #{@order.total}", order_path(@order), class: "see_cart" %>
 	        <% elsif current_user %>
-	          <%= link_to " Cart: empty", orders_path, class: "see_cart" %>
+	          <%= link_to " Cart: empty", order_path(current_order), class: "see_cart" %>
 	        <% else %>
 	          
 	        <% end %>
         </div>
-		<div class="w3-center w3-padding-16" ><%= link_to "Seera Fast Food", categories_path, style: "text-decoration: none", class: "w3-text-red" %>
+        </div>
+		<div class="w3-center w3-padding-16" ><%= link_to "Seera Fast Food", categories_path, style: "text-decoration: none", class: "w3-hover-opacity w3-hover-text-red w3-text-red" %>
 		</div>
 	  
 	  
@@ -59,6 +60,7 @@
 			<% end %>
 		</div>
 	  </div>
+	 </div>
 	</div>
  
       

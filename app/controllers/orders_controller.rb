@@ -12,11 +12,27 @@ class OrdersController < ApplicationController
   end
 
   def show
-	 @order = current_order
+    if current_user && !current_user.admin?
+	     @order = current_order
+    elsif current_user.admin?
+       @order = Order.find(params[:id])
+    else
+    end
   end
-  def update
 
+  def edit 
+      @order = Order.find(params[:id])
   end
+  
+  def update 
+    @order = Order.find(params[:id]) 
+    if @order.update_attributes(order_params) 
+      redirect_to(:action => 'edit', :id => @order.id) 
+    else 
+      render 'edit' 
+    end 
+  end
+
   
   def checkout
     if session[:user_id]
@@ -24,11 +40,16 @@ class OrdersController < ApplicationController
       @order.update(status: "completed")
       flash.notice = "Order Completed"
       session[:order_id] = nil
-      user.orders << find_or_create_order
+      find_or_create_order
       redirect_to categories_path
     else
       flash.notice = "You need to sign in first!"
       redirect_to new_session_path
     end
   end
+
+  private 
+    def order_params 
+      params.require(:order).permit(:user_id, :order_id) 
+    end
 end

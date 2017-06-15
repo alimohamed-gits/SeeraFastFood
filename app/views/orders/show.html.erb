@@ -1,29 +1,74 @@
-<h1>Current Order</h1>
+<% if !current_user.admin? %>
 <ul id="orders">
   <div id="<%= dom_id(@order) %>">
    <h2><p>order id: <%= @order.id %></p></h2>
     <p><h3>order items:</h3> <% @order.order_items.each do |order_item| %></p>
-    <%= image_tag order_item.item.image(:thumb), class: "item_img" %>
+    <%= image_tag order_item.item.image(:thumb) %>
       <p><b>name: </b><%= order_item.item.name %></p>
       <p><b>price: </b>Mrf <%= order_item.item.price %></p>
       <p><b>quantity: </b><%= order_item.quantity %> </br>
-      <%= link_to "Remove From Cart", order_item_path(order_item), {class: "Remove From Cart", method: :delete} %>
+      <%= link_to "Remove From Cart", order_item_path(order_item), {class: "w3-button w3-red", method: :delete} %>
     <% end %>
     <hr>
       <p><b> Order Total: Mrf</b><%= @order.total %></p>
       <% if current_order.items.any? %> 
-        <%= link_to "Submit Order", checkout_path, class: "submit_order" %>
+        <%= link_to "Submit Order", checkout_path, class: "w3-button w3-red" %>
         <% else %>
-        <%= link_to "Submit Order", order_path(current_order), method: :get, data:{confirm: "You need to add items if you want to check out!"} %>
+        <%= link_to "Submit Order", order_path(current_order), method: :get, class: "w3-button w3-red", data:{confirm: "You need to add items if you want to check out!"} %>
        <% end %>
 
 
-    <p>order created at: <%= @order.created_at %></p>
-    <p>order updated at: <%= @order.updated_at %></p>
+    <p>order created at: <%= @order.created_at.strftime("%d %b. %Y") %></p>
+    <p>order updated at: <%= @order.updated_at.strftime("%d %b. %Y") %></p>
   </div>
   <hr>
   <hr>
 </ul>
 <%= link_to "See Past Orders", orders_path, class: "orders" %> </br>
 <%= link_to "Back to the Menu", categories_path, class: "see_menu" %>
+ 
+
+<% else %>
+<div class= "w3-container  w3-half">
+  <table class="w3-center w3-light-gray">
+    <tr>  <td colspan="5">Seera Fast Food Maldives Pvt. Ltd</td> </tr>
+    <tr>  <td colspan="5">Alikilegefaanu Magu, Male'</td> </tr>
+    <tr>  <td colspan="5">Phone: 3325913</td> </tr>
+    <tr>  <td colspan="5"><b>TAX INVOICE</b></td> </tr>
+    <tr>  <td colspan="1">GST NO: </td><td> </td><td> </td><td> </td><td colspan="2" class = "w3-left"><%= @order.user.phone %> </td> </tr>
+    <tr>  
+      <td colspan="1" class = "w3-right"><%= @order.updated_at.strftime("%d %b. %Y") %> </td>
+      <td colspan="3"> <%= @order.user.id %></td>
+      <td colspan="1"><%= @order.updated_at.strftime("%H:%M") %></td> 
+    </tr>
+    <tr>
+      <th>Item ID</th>
+      <th>Item Description</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Amount</th>
+    </tr>
+<% @order.order_items.each do |order_item| %>
+    <tr>
+      <td><%= order_item.item.id %></td>
+      <td><%= order_item.item.name %></td>
+      <td><%= order_item.quantity %></td>
+      <td><%= order_item.item.price %></td>
+      <td><%= order_item.total %></td>
+    </tr>
+<% end %>
+    <tr><td> </td><td> </td><td> </td>  <td colspan="1" class = "w3-right">Sub Total:</td> <td colspan="1"><%= @order.total %></td></tr>
+    <tr>  <td> </td><td> </td><td> </td> <td colspan="1" class = "w3-right">GST:</td> <td colspan="1"><%= @order.gst %></td></tr>
+    <tr>  <td>Order No: <%= @order.id %> </td><td> </td><td> </td><td colspan="1" class = "w3-right"><b>Total:</b></td> <td colspan="1"><%= @order.grandtotal %></td> </tr>
+    <tr><td>&nbsp</td></tr><tr><td>&nbsp</td></tr>
+    <tr>  <td colspan="5">Thank you!</td> </tr>
+    <tr>  <td colspan="5">Come again!</td> </tr>
+
+  </table>
+  <br>
+  <%= link_to "Edit Order", edit_order_path(@order.id), class: "w3-button w3-red" %>
+  <%= link_to "Print Order", edit_order_path(@order.id), class: "w3-button w3-red" %>
+  <%= link_to "Back to Orders", orders_path, class: "w3-button w3-red" %>
+</div>
+<% end %>
 
