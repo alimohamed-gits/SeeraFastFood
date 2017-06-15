@@ -11,11 +11,14 @@ class UsersController < ApplicationController
 	def edit 
 		@user = User.find(params[:id])
 	end
+	def show 
+		@user = User.find(params[:id])
+	end
   
    def create
 		@user = User.new(user_params)
+		find_or_create_order
 		@user.save
-
 		if @user.valid?
 		  flash[:notice] = 'New Account Successfully created'
 		  session[:user_id] = @user.id 
@@ -27,10 +30,12 @@ class UsersController < ApplicationController
 	
 	def update 
 		@user = User.find(params[:id]) 
-		if @user.update_attributes(user_params) 
-			redirect_to users_path
+		if @user.update_attributes(user_params)
+			redirect_to user_path
+			flash[:notice] = 'User Information Updated Successfully'
 		else 
-			render 'edit' 
+			render 'edit'
+			flash[:notice] = 'Could not update the User Information'
 		end 
 	end
 	
@@ -42,6 +47,6 @@ class UsersController < ApplicationController
 		
   private
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :address, :phone)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :address, :phone)
     end
 end

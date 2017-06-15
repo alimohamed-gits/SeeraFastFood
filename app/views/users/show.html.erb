@@ -1,0 +1,8 @@
+<table class="w3-table w3-striped w3-bordered">
+	<tr><th>Name:</th> <td><%= @user.first_name %> <%= @user.last_name %></td></tr>
+	<tr><th>Email:</th> <td><%= @user.email %></td></tr>
+	<tr>	<th>Phone Number:</th> <td><%= @user.phone %></td></tr>
+	<tr>	<th>Address:</th><td><%= @user.address %></td>
+</table>
+<br>
+<%= link_to "Change Information", edit_user_path(@user), class: "w3-button w3-red w3-center" %>

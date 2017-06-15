@@ -6,7 +6,6 @@
 	  <th>Phone</th>
 	  <th>Address</th>
 	  <th>Total Purchase</th>
-	  <th>Orders</th>
 	</tr>
 	<% @users.each do |user| %>	
 		<tr>
@@ -15,7 +14,6 @@
 		  <td><%= user.phone %></td>
 		  <td><%= user.address %></td>
 		  <td><%= user.total_spent %></td>
-		  <td><%= link_to 'View', orders_path(user) %> </td>
 		  <td><%= link_to "Edit User", edit_user_path(user) %></td>
 		</tr>
 	<% end %>

@@ -23,10 +23,20 @@
 			<%= f.label :address %>
 			<%= f.text_field :address, :class => "w3-input w3-border" %>
 		</div>
-	</div><br />
+		<div class="w3-col" >
+			<label for="password"> New Password </label>
+			<%= f.password_field :password, :class => "w3-input w3-border" %>
+		</div>
+		<div class="w3-col" >
+			<label for="password"> Confirm New Password </label>
+			<%= f.password_field :password, :class => "w3-input w3-border" %>
+		</div>
+	</div>
+	<br />
 	<div class="w3-row-padding">
 		<div class="w3-col w3-center" >
 			<%= f.submit "Update", :class => "w3-button w3-block w3-red" %>
 		</div>
 	</div>
+
 <% end %>

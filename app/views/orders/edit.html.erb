@@ -1,29 +1,43 @@
-<h1>Current Order</h1>
-<ul id="orders">
-  <div id="<%= dom_id(@order) %>">
-   <h2><p>order id: <%= @order.id %></p></h2>
-    <p><h3>order items:</h3> <% @order.order_items.each do |order_item| %></p>
-    <%= image_tag order_item.item.image(:thumb), class: "item_img" %>
-      <p><b>name: </b><%= order_item.item.name %></p>
-      <p><b>price: </b>Mrf <%= order_item.item.price %></p>
-      <p><b>quantity: </b><%= order_item.quantity %> </br>
-      <%= link_to "Remove From Cart", order_item_path(order_item), {class: "Remove From Cart", method: :delete} %>
+
+  <div id="<%= dom_id(@order) %>" class="w3-container w3-full">
+   <h2>order id: <%= @order.id %></h2>
+   <h3>order items:</h3> 
+   <table class="w3-table w3-striped w3-bordered">
+   <tr>
+      <th>Image</th>
+       <th>Name</th>
+       <th>Quantity</th>
+       <th>Price</th>
+       <th>Amount</th>
+       <th>Remove</th>
+    </tr> 
+     <% @order.order_items.each do |order_item| %>
+    <tr>
+      <td><%= image_tag order_item.item.image(:thumb) %></td>
+      <td><%= order_item.item.name %> </td>
+      <td><%= order_item.quantity %> </td>
+      <td><%= order_item.item.price %> </td>
+      <td><%= order_item.total %> </td>
+      <td><%= link_to "Remove", order_item_path(order_item), {class: "w3-button w3-red", method: :delete} %> </td>
+    </tr> 
     <% end %>
-    <hr>
-      <p><b> Order Total: Mrf</b><%= @order.total %></p>
-      <% if current_order.items.any? %> 
-        <%= link_to "Submit Order", checkout_path, class: "submit_order" %>
+    <tr>
+      <td><b>Order created at:</b> </td>
+      <td><%= @order.created_at.strftime("%d %b. %Y") %>&nbsp<%= @order.created_at.strftime("%H:%M") %> </td>
+      <td><b>Order updated at:</b> </td>
+      <td><%= @order.updated_at.strftime("%d %b. %Y") %> &nbsp <%= @order.updated_at.strftime("%H:%M") %> </td>
+      <td><b> Order Total:</b></td>
+      <td>Mrf <%= @order.total %></td>
+    </tr> 
+    <tr>
+      <td colspan="2"> <% if current_order.items.any? %> 
+        <%= link_to "Submit Order", checkout_path, class: "w3-button w3-red" %>
         <% else %>
-        <%= link_to "Submit Order", order_path(current_order), method: :get, data:{confirm: "You need to add items if you want to check out!"} %>
-       <% end %>
-
-
-    <p>order created at: <%= @order.created_at %></p>
-    <p>order updated at: <%= @order.updated_at %></p>
-  </div>
-  <hr>
-  <hr>
-</ul>
-<%= link_to "See Past Orders", orders_path, class: "orders" %> </br>
-<%= link_to "Back to the Menu", categories_path, class: "see_menu" %>
+        <%= link_to "Submit Order", orders_path(current_order), method: :get, class: "w3-button w3-red", data:{confirm: "You need to add items if you want to check out!"} %>
+       <% end %></td>
+      <td colspan="2"><%= link_to "See Past Orders", orders_path, class: "w3-button w3-red" %> </td>
+      <td colspan="2"><%= link_to "Back to the Menu", categories_path, class: "w3-red w3-button" %> </td>
+      
+    </tr> 
+</table> 
 

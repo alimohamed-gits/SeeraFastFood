@@ -14,7 +14,7 @@
       <p class="w3-center">price: Mrf &nbsp<%= item.price %></p>
           <%= form_for item.order_items.new do |f| %>
             <%= f.hidden_field :item_id %>
-            <p class="w3-center"><%= f.submit "Add to Cart" %>
+            <p class="w3-center"><%= f.submit "Add to Cart", class: "w3-button w3-red" %>
           <select id="quantity_<%= dom_id(item) %>" name="quantity">
           <option selected="1">1</option>
           <option value="2">2</option>
